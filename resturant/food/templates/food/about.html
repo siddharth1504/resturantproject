@@ -1,0 +1,36 @@
+{% extends "food/index.html" %}
+{% load static %}
+{% block content %}
+{% static "img" as baseUrl %}
+<!-- About Section -->
+<div id="portfolio">
+  {% for head in displays %}
+  <div class="section-title text-center center">
+    <div class="overlay">
+      <h2>About</h2>
+      <hr>
+      <p>{{ head.about_heading }}</p>
+    </div>
+  </div>
+  {% endfor %}
+  <div class="container">
+    <div class="row">
+      {% for details in description %}
+      <div class="col-xs-12 col-md-6 ">
+        <div class="about-img"><img src="{{details.img.url}}" class="img-responsive" alt=""></div>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <div class="about-text">
+          <h2>{{ details.heading_main }}</h2>
+          <hr>
+          <p>{{ details.main_desc }}</p>
+          <h3>{{ details.sub_heading }}</h3>
+          <p>{{ details.sub_desc }}</p>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+
+</div>
+{% endblock content %}

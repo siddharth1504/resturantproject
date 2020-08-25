@@ -1,0 +1,43 @@
+{% extends "food/index.html" %}
+{% load static %}
+{% block content %}
+<!-- Restaurant Menu Section -->
+<div id="restaurant-menu">
+  {% for head in displays %}
+    <div class="section-title text-center center">
+      <div class="overlay">
+        <h2>Menu</h2>
+        <hr>
+        <p>{{ head.menu_heading }}</p>
+      </div>
+    </div>
+  {% endfor %}
+    <div class="container">
+      <div class="row">
+        {% for category, products in categories.items %}
+          {% if products %}
+            <div class="col-xs-12 col-sm-6">
+              <div class="menu-section">
+                <h2 class="menu-section-title">{{ category.category_name }}</h2>
+                <hr>
+                {% for i in products %}
+                  <div class="menu-item">
+                    <div class="menu-item-name">{{ i.dish_name}}</div>
+                    <div class="menu-item-price">Rs {{ i.Amount}}</div>
+                    <div class="menu-item-description">{{ i.Desc}}</div>
+                    <select name="cars" id="cars" style="alight-right">
+                      <option>Select</option>
+                      <option value="volvo" >Half</option>
+                      <option value="saab">Full</option>
+                    </select>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+</div>
+
+{% endblock content %}
