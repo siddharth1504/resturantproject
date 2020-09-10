@@ -1,0 +1,99 @@
+{% extends "food/index.html" %}
+{% load static %}
+{% block content %}
+<div id="restaurant-menu">
+
+  <div class="section-title text-center center">
+    <div class="overlay">
+      <h2>CheckOut</h2>
+      <hr>
+      <p></p>
+    </div>
+  </div>
+
+</div>
+<div>
+    <h5 id="emptycart"></h5>
+</div>
+<div class="container" style="margin-bottom:15px;">
+    <div><h2 class="text-center">Review your Order</h2></div>
+    <table class="table table-condensed" style="color:#000000;">
+        <thead>
+        <tr style="background:#D3D3D3;">
+            <th scope="col" class="border-0 bg-light">
+                <div class="p-2 px-3 text-uppercase">Product</div>
+            </th>
+            <th scope="col" class="border-0 bg-light">
+                <div class="py-2 text-uppercase">Price(Rs)</div>
+            </th>
+            <th scope="col" class="border-0 bg-light">
+                <div class="py-2 text-uppercase">Quantity</div>
+            </th>
+            <th scope="col" class="border-0 bg-light">
+                <div class="py-2 text-uppercase">Remove</div>
+            </th>
+        </tr>
+        </thead>
+        <tbody id="items">
+            
+            
+        </tbody>
+            <tr>
+                <th>
+                    <a href="{% url 'billing-info' %}" class="btn btn-primary btn-lg btn-block active" role="button" aria-pressed="true">Proceed to Checkout</a>
+                </th>
+            </tr>
+    </table>
+
+</div>
+
+{% endblock content %}
+
+{% block js %}
+<script>
+    if (localStorage.getItem('cart') == null) {
+    var cart = {};
+} else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+}
+console.log(cart);
+var sum = 0;
+var totalprice = 0;
+
+if($.isEmptyObject(cart)){
+    //if object is empty
+    mystr = `<p>Your cart is empty, please add some items to your cart before checking out!</p>`
+    $('#emptycart').append(mystr);
+}
+else{
+    for(item in cart){
+        let name = cart[item][1];
+        let qty = cart[item][0];
+        let itemprice = cart[item][2];
+        sum = sum + qty;
+        totalprice = totalprice+ qty*itemprice;
+        mystr_name = `<tr>
+                        <th scope="row" class="border-0">
+                            <h5 class="mb-0" id="items">${name}</h5>
+                        </th>
+                        <td class="border-0 align-middle"><strong>${itemprice}</strong></td>
+                        <td class="border-0 align-middle"><strong>${qty}</strong></td>
+                        <td class="border-0 align-middle"><a href="#" class="text-dark"><i class="fa fa-trash></i></a></td>
+                      </tr>`
+
+        $('#items').append(mystr_name)
+    }
+
+}
+mystr_name1 = `<tr>
+                <th scope="row" class="border-0">
+                <h5 class="mb-0">Total Amount (Rs:)</h5>
+               </th>
+                <td class="align-middle"><strong>${totalprice}</strong></td>
+                </tr>`
+$('#items').append(mystr_name1)
+document.getElementById('cart').innerHTML = sum;
+document.getElementById('total_price').innerHTML = totalprice;
+
+</script>
+{% endblock %}

@@ -59,3 +59,11 @@ def about(request):
     displays = Headings.objects.all()
     description = About.objects.all()
     return render(request, 'food/about.html', {'description': description, 'displays': displays, 'displaynew': displaynew})
+
+
+def checkout(request):
+    return render(request, 'food/checkout.html')
+
+
+def billingInfo(request):
+    return render(request, 'food/billinginformation.html')
